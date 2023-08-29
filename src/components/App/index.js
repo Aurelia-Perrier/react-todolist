@@ -3,7 +3,6 @@ import { useState } from 'react';
 import CounterTasks from '../CounterTasks';
 import Form from '../Form';
 import TasksList from '../TasksList';
-import tasksData from '../../data/tasks';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -51,12 +50,17 @@ function App() {
     setTasks(tasksCopy);
   };
 
+  const handleDeleteTask = (id) => {
+    const newArrayTasks = tasks.filter((task) => task.id !== id);
+    setTasks(newArrayTasks);
+  };
+
   const toDoTasks = tasks.filter((task) => task.done === false);
   return (
     <div className="app">
       <Form addTask={addTask} handleNewLabel={handleNewLabel} taskLabel={taskLabel} />
       <CounterTasks toDoTasks={toDoTasks.length} />
-      <TasksList tasks={tasks} handleTaskDone={handleTaskDone} />
+      <TasksList tasks={tasks} handleTaskDone={handleTaskDone} handleDeleteTask={handleDeleteTask} />
     </div>
 
   );
