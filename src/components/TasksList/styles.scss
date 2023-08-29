@@ -16,3 +16,8 @@
   font-family: sans-serif;
   padding: 0.2rem;
 }
+
+.list-item--done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
