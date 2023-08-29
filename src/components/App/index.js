@@ -37,12 +37,26 @@ function App() {
     setTaskLabel('');
   };
 
+  const handleTaskDone = (id) => {
+    const tasksCopy = tasks.map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          done: !task.done,
+        };
+      }
+      return task;
+    });
+
+    setTasks(tasksCopy);
+  };
+
   const toDoTasks = tasks.filter((task) => task.done === false);
   return (
     <div className="app">
       <Form addTask={addTask} handleNewLabel={handleNewLabel} taskLabel={taskLabel} />
       <CounterTasks toDoTasks={toDoTasks.length} />
-      <TasksList tasks={tasks} />
+      <TasksList tasks={tasks} handleTaskDone={handleTaskDone} />
     </div>
 
   );
