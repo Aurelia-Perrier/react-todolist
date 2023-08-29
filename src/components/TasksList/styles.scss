@@ -1,0 +1,18 @@
+.list-item {
+  display: block;
+  background: #D1CFE2;
+  border-radius: 3px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+
+  &-checkbox {
+    margin-right: 0.7rem;
+  }
+}
+
+.delete {
+  display: block;
+  float: right;
+  font-family: sans-serif;
+  padding: 0.2rem;
+}
