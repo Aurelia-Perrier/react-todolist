@@ -1,7 +1,7 @@
 import './styles.scss';
 import PropTypes from 'prop-types';
 
-function TasksList({ tasks }) {
+function TasksList({ tasks, handleTaskDone, handleDeleteTask }) {
   return (
     <ul className="list">
       {
@@ -13,10 +13,12 @@ function TasksList({ tasks }) {
                 type="checkbox"
                 checked={task.done}
                 className="list-item-checkbox"
+                onChange={() => handleTaskDone(task.id)}
               />
               {task.label}
               <span
                 className="delete"
+                onClick={() => handleDeleteTask(task.id)}
               >
                 x
               </span>
@@ -34,6 +36,8 @@ TasksList.propTypes = {
     label: PropTypes.string.isRequired,
     done: PropTypes.bool.isRequired,
   })).isRequired,
+  handleTaskDone: PropTypes.func.isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
 };
 
 export default TasksList;
