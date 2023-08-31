@@ -1,5 +1,6 @@
 import './styles.scss';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import CounterTasks from '../CounterTasks';
 import Form from '../Form';
 import TasksList from '../TasksList';
@@ -8,35 +9,24 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [taskLabel, setTaskLabel] = useState('');
 
-  const generateNewId = () => {
-    if (tasks.length === 0) {
-      return 1;
-    }
-    const idList = tasks.map((task) => task.id);
-    return Math.max(...idList) + 1;
-  };
-
   const handleNewLabel = (event) => {
     setTaskLabel(event.target.value);
   };
 
-  const addTask = (event) => {
+  const addTask = async (event) => {
     event.preventDefault();
 
-    const newTask = {
-      id: generateNewId(),
+    const result = await axios.post(`http://localhost:3000/tasks`, {
       label: taskLabel,
-      done: false,
-    };
+    });
 
-    const tasksCopy = [...tasks];
-    tasksCopy.push(newTask);
-
-    setTasks(tasksCopy);
+    setTasks(result.data);
     setTaskLabel('');
   };
 
-  const handleTaskDone = (id) => {
+  const handleTaskDone = async (id) => {
+    const result = await axios.put(`http://localhost:3000/tasks/${id}`);
+
     const tasksCopy = tasks.map((task) => {
       if (task.id === id) {
         return {
@@ -50,10 +40,19 @@ function App() {
     setTasks(tasksCopy);
   };
 
-  const handleDeleteTask = (id) => {
-    const newArrayTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newArrayTasks);
+  const handleDeleteTask = async (id) => {
+    const result = await axios.delete(`http://localhost:3000/tasks/${id}`);
+    setTasks(result.data);
   };
+
+  const loadTasks = async () => {
+    const result = await axios.get('http://localhost:3000/tasks');
+    setTasks(result.data);
+  };
+
+  useEffect( () => {
+    loadTasks();
+  }, []);
 
   const toDoTasks = tasks.filter((task) => task.done === false);
   return (
