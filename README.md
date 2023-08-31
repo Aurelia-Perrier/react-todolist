@@ -6,6 +6,8 @@ Pour installer toutes les dépendances, il faut utiliser la commande :
 Une fois les dépendances installées, on peut lancer un serveur :
 ``` yarn start ```
 
-La todolist n'ai pas reliée à un back, cela veut dire que tout ce qui est ajouté/modifié/supprimé n'est pas enregristré dans une base de données.
+La todolist est reliée à un back créé avec NodeJs et Express.
+Pour lancer le serveur node il faut se placer dans le dossier `back`. Ensuite il faut lancer la commande ` yarn start `.
+L'API est disponible sur le port 3000
 
 Je vous laisse découvrir cette nouvelle todolist !
