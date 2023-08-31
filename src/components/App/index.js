@@ -24,7 +24,9 @@ function App() {
     setTaskLabel('');
   };
 
-  const handleTaskDone = (id) => {
+  const handleTaskDone = async (id) => {
+    const result = await axios.put(`http://localhost:3000/tasks/${id}`);
+
     const tasksCopy = tasks.map((task) => {
       if (task.id === id) {
         return {
@@ -38,9 +40,9 @@ function App() {
     setTasks(tasksCopy);
   };
 
-  const handleDeleteTask = (id) => {
-    const newArrayTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newArrayTasks);
+  const handleDeleteTask = async (id) => {
+    const result = await axios.delete(`http://localhost:3000/tasks/${id}`);
+    setTasks(result.data);
   };
 
   const loadTasks = async () => {
